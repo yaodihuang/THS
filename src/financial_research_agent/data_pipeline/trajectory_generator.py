@@ -4,6 +4,32 @@ from src.financial_research_agent.models import Trajectory, ResearchStep, Resear
 from src.financial_research_agent.config import Config
 
 class TrajectoryGenerator:
+    def export_trajectory_jsonl(self, trajectory: Trajectory, file_path: str):
+        """
+        将Trajectory对象导出为JSONL格式，便于SFT/RL训练。
+        """
+        import json
+        with open(file_path, "w", encoding="utf-8") as f:
+            traj_dict = trajectory.dict()
+            # 步骤拆分为事件流，每步一行
+            for step in traj_dict["steps"]:
+                event = {
+                    "id": traj_dict["id"],
+                    "user_query": traj_dict["user_query"],
+                    "step": step["step_number"],
+                    "thought": step["thought"],
+                    "action": step["action"],
+                    "observation": step["observation"],
+                    "aius_generated": step.get("aius_generated", []),
+                }
+                f.write(json.dumps(event, ensure_ascii=False) + "\n")
+            # 最终报告单独一行
+            final_event = {
+                "id": traj_dict["id"],
+                "user_query": traj_dict["user_query"],
+                "final_report": traj_dict.get("final_report_content", "")
+            }
+            f.write(json.dumps(final_event, ensure_ascii=False) + "\n")
     """
     Generates forward cognitive trajectories based on a user query.
     Acts as the 'Teacher' model in the 1.1.1 scheme.

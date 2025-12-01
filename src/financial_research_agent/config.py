@@ -9,10 +9,10 @@ class Config:
     TAVILY_API_KEY = os.getenv("TAVILY_API_KEY") # Assuming Tavily for search
 
     # Model Configurations
-    PLANNER_MODEL = "gpt-4o"
-    RESEARCHER_MODEL = "gpt-4o-mini"
-    WRITER_MODEL = "gpt-4o"
-    REVIEWER_MODEL = "gpt-4o"
+    PLANNER_MODEL = "gpt-5"
+    RESEARCHER_MODEL = "gpt-5"
+    WRITER_MODEL = "gpt-5"
+    REVIEWER_MODEL = "gpt-5"
     
     # Search Configuration
     MAX_SEARCH_RESULTS = 5

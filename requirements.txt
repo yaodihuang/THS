@@ -1,2 +1,13 @@
 pydantic
 python-dotenv
+
+# 基础包
+requests
+tqdm
+
+# 数据与聚类
+numpy
+scikit-learn
+
+# LLM相关（如需调用OpenAI等）
+openai
